@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "db.sqlite")
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://xlpzivwlnakcfv:66446c4d45073cf9382db02161ae90e77767634367e0565f934b21da624bec53@ec2-35-168-54-239.compute-1.amazonaws.com:5432/dacg48onjdl0a2"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -62,4 +62,4 @@ def add_person():
     return person_schema.jsonify(new_person)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=false)
