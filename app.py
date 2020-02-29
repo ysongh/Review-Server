@@ -62,4 +62,4 @@ def add_person():
     return person_schema.jsonify(new_person)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
