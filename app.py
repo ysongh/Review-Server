@@ -37,5 +37,21 @@ persons_schema = PersonSchema(many = True)
 def get():
     return jsonify({ "data": "Testing"})
 
+# add a person
+@app.route("/person", methods=["POST"])
+def add_person():
+    name = request.json["name"]
+    company = request.json["company"]
+    tags = request.json["tags"]
+    description = request.json["description"]
+    rating = request.json["rating"]
+
+    new_person = Person(name, company, tags, description, rating)
+
+    db.session.add(new_person)
+    db.session.commit()
+
+    return person_schema.jsonify(new_person)
+
 if __name__ == "__main__":
     app.run(debug=True)
