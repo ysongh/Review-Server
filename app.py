@@ -25,10 +25,17 @@ class Person(db.Model):
         self.description = description
         self.rating = rating
 
+class PersonSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "name", "company", "tags", "description", "rating")
+
+person_schema = PersonSchema()
+persons_schema = PersonSchema(many = True)
+
 # testing
 @app.route("/", methods=["GET"])
 def get():
     return jsonify({ "data": "Testing"})
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run(debug=True)
