@@ -17,6 +17,7 @@ Name | Data Type | Description
 --- | ---- | ---
 name | string | (Required) Name of the person
 company | string | (Required) Company that the person works for
+image | string | (Option) URL of the image
 tags | string | (Required) Separate each tags by a comma
 description | string | (Required) Details of the person
 rating | decimal | (Required) Must be between 0.0 to 5.0

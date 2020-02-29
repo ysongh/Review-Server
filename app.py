@@ -5,7 +5,8 @@ import os
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://xlpzivwlnakcfv:66446c4d45073cf9382db02161ae90e77767634367e0565f934b21da624bec53@ec2-35-168-54-239.compute-1.amazonaws.com:5432/dacg48onjdl0a2"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "db.sqlite")
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://xlpzivwlnakcfv:66446c4d45073cf9382db02161ae90e77767634367e0565f934b21da624bec53@ec2-35-168-54-239.compute-1.amazonaws.com:5432/dacg48onjdl0a2"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -14,20 +15,22 @@ class Person(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100))
     company = db.Column(db.String(100))
+    image = db.Column(db.String(100))
     tags = db.Column(db.String(200))
     description = db.Column(db.String(200))
-    rating = db.Column(db.Integer)
+    rating = db.Column(db.Float)
 
-    def __init__(self, name, company, tags, description, rating):
+    def __init__(self, name, company, image, tags, description, rating):
         self.name = name
         self.company = company
+        self.image = image
         self.tags = tags
         self.description = description
         self.rating = rating
 
 class PersonSchema(ma.Schema):
     class Meta:
-        fields = ("id", "name", "company", "tags", "description", "rating")
+        fields = ("id", "name", "company", "image", "tags", "description", "rating")
 
 person_schema = PersonSchema()
 persons_schema = PersonSchema(many = True)
@@ -50,11 +53,12 @@ def get_persons():
 def add_person():
     name = request.json["name"]
     company = request.json["company"]
+    image = request.json["image"]
     tags = request.json["tags"]
     description = request.json["description"]
     rating = request.json["rating"]
 
-    new_person = Person(name, company, tags, description, rating)
+    new_person = Person(name, company, image, tags, description, rating)
 
     db.session.add(new_person)
     db.session.commit()
