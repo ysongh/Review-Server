@@ -35,6 +35,27 @@ class PersonSchema(ma.Schema):
 person_schema = PersonSchema()
 persons_schema = PersonSchema(many = True)
 
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    person_id = db.Column(db.Integer)
+    author = db.Column(db.String(100))
+    comment = db.Column(db.String(200))
+    tags = db.Column(db.String(200))
+    rating = db.Column(db.Float)
+
+    def __init__(self, person_id, author, comment, tags, rating):
+        self.person_id = person_id
+        self.author = author
+        self.comment = comment
+        self.tags = tags
+        self.rating = rating
+
+class ReviewSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "person_id", "author", "comment", "tags", "rating")
+
+reviews_schema = ReviewSchema(many = True)
+
 # testing
 @app.route("/", methods=["GET"])
 def get():
