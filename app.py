@@ -65,5 +65,11 @@ def add_person():
 
     return person_schema.jsonify(new_person)
 
+# find person by Id
+@app.route("/person/<id>", methods=["GET"])
+def get_person(id):
+    person = Person.query.get(id)
+    return person_schema.jsonify(person)
+
 if __name__ == "__main__":
     app.run(debug=True)

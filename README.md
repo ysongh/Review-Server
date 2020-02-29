@@ -1,7 +1,7 @@
 # Review Server
 A server using python with flask
 
-+ **Find all Persons**
++ **Find all persons**
 
 GET https://reviewserver.herokuapp.com/person
 
@@ -21,3 +21,9 @@ image | string | (Option) URL of the image
 tags | string | (Required) Separate each tags by a comma
 description | string | (Required) Details of the person
 rating | decimal | (Required) Must be between 0.0 to 5.0
+
++ **Find person by Id**
+
+GET https://reviewserver.herokuapp.com/person/{id}
+
+Result - name, company, tags, description, rating
