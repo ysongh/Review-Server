@@ -10,6 +10,21 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+class Person(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100))
+    company = db.Column(db.String(100))
+    tags = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    rating = db.Column(db.Integer)
+
+    def __init__(self, name, company, tags, description, rating):
+        self.name = name
+        self.company = company
+        self.tags = tags
+        self.description = description
+        self.rating = rating
+
 # testing
 @app.route("/", methods=["GET"])
 def get():
