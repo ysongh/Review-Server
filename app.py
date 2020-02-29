@@ -37,6 +37,14 @@ persons_schema = PersonSchema(many = True)
 def get():
     return jsonify({ "data": "Testing"})
 
+# get all person
+@app.route("/person", methods=["GET"])
+def get_persons():
+    all_persons = Person.query.all()
+    result = persons_schema.dump(all_persons)
+
+    return jsonify(result)
+
 # add a person
 @app.route("/person", methods=["POST"])
 def add_person():
